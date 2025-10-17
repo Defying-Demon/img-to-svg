@@ -48,6 +48,12 @@ To generate a character in SVG format:
 python character_animation.svg
 ```
 
+### Demo
+
+| Image to SVG               | Character               | Character Animation          |
+|---------------------------|-------------------------|------------------------------|
+| ![](./assets/img_to_svg.svg) | ![](./assets/character.svg) | ![](./assets/animated_character.svg) |
+
 
 ### References
 

@@ -1,0 +1,23 @@
+<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg' width='1000' height='1000'>
+<rect x='0' y='0' width='100' height='100' fill='#FAFAEF' />
+<path stroke='transparent' stroke-width='0' fill='#d8db76' d='M89.5,64.5 Q79,79 64.5,86.5 Q50,94 40.0,82.5 Q30,71 17.0,60.5 Q4,50 16.0,39.0 Q28,28 39.0,16.5 Q50,5 66.5,11.5 Q83,18 91.5,34.0 Q100,50 89.5,64.5 Z' />
+
+    <g>
+        <circle transform="translate(70, 65)" cx="0" cy="0" r="6" fill="rgba(255, 255, 255, 0.4)" >
+        </circle>
+        <circle transform="translate(30, 65)" cx="0" cy="0" r="6" fill="rgba(255, 255, 255, 0.4)" >
+        </circle>
+    </g>
+<path transform='translate(-3, -3)' stroke='#000' stroke-width='2' fill='none' d='M89.5,64.5 Q79,79 64.5,86.5 Q50,94 40.0,82.5 Q30,71 17.0,60.5 Q4,50 16.0,39.0 Q28,28 39.0,16.5 Q50,5 66.5,11.5 Q83,18 91.5,34.0 Q100,50 89.5,64.5 Z' />
+
+        <g>
+            <g transform = 'translate(38, 50)'>
+                <circle cx='0' cy='0' r='7.960643349240861' stroke='#000' stroke-width='2' fill='#fff' />
+                <circle cx='-0.4968787944129809' cy='-1.027695698217527' r='3' fill='#000' />
+            </g>
+            <g transform = 'translate(58, 50)'>
+                <circle cx='0' cy='0' r='7.960643349240861' stroke='#000' stroke-width='2' fill='#fff' />
+                <circle cx='-0.4968787944129809' cy='-1.027695698217527' r='3' fill='#000' />
+            </g>
+        </g>
+</svg>
