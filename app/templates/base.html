@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="nav">
+        <a href="{{ url_for('main.character') }}" class="{% if request.endpoint == 'main.character' %}active{% endif %}">Character</a>
+        <a href="{{ url_for('main.img_to_svg') }}" class="{% if request.endpoint == 'main.img_to_svg' %}active{% endif %}">Image to SVG</a>
+    </nav>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

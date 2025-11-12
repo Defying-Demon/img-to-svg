@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page">
+    <h1>Image to SVG</h1>
+
+    <form method="POST" enctype="multipart/form-data" class="upload-form">
+        <div class="file-input">
+            <input type="file" name="image" id="image" accept="image/*" required>
+            <label for="image">Choose Image</label>
+        </div>
+
+        <div class="control-group inline">
+            <label>K-Means Clusters</label>
+            <input type="number" name="k_clusters" min="2" max="12" value="6">
+        </div>
+
+        <button type="submit">Convert to SVG</button>
+    </form>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if svg %}
+        <div class="svg-container">
+            {{ svg | safe }}
+        </div>
+
+        <div class="actions">
+            <button onclick="copySVG()" class="btn">Copy SVG Code</button>
+        </div>
+
+        <script>
+            function copySVG() {
+                const svg = `{{ svg | safe }}`;
+                navigator.clipboard.writeText(svg).then(() => {
+                    alert("SVG code copied to clipboard!");
+                });
+            }
+        </script>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Generator: Character + Image to SVG</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>SVG Generator</h1>
+
+        <!-- Character Generator -->
+        <div class="section">
+            <h2>Animated Character</h2>
+            <form method="POST" class="controls">
+                <label>Edges: <input type="range" name="edges" min="6" max="10" value="{{ params.edges }}"></label>
+                <label>Growth: <input type="range" name="growth" min="1" max="10" step="0.5" value="{{ params.growth }}"></label>
+                <label>Eye Type:
+                    <select name="eye_type">
+                        <option value="">Random</option>
+                        <option value="single" {% if params.eye_type == 'single' %}selected{% endif %}>Single</option>
+                        <option value="double" {% if params.eye_type == 'double' %}selected{% endif %}>Double</option>
+                    </select>
+                </label>
+                <label>Rotate (s): <input type="range" name="rotate_speed" min="0.5" max="10" step="0.5" value="{{ params.rotate_speed }}"></label>
+                <label>Blink (s): <input type="range" name="blink_speed" min="0.5" max="5" step="0.5" value="{{ params.blink_speed }}"></label>
+                <label>Fill: <input type="color" name="fill" value="{{ params.fill or '#79B4B7' }}"></label>
+                <label>BG: <input type="color" name="bg" value="{{ params.bg or '#EFF7EB' }}"></label>
+                <button type="submit">Update</button>
+            </form>
+
+            <div class="svg-box">
+                {{ character_svg | safe }}
+            </div>
+            <a href="{{ url_for('main.download_character') }}?{{ request.query_string.decode() }}" class="btn">Download Character SVG</a>
+        </div>
+
+        <hr>
+
+        <!-- Image to SVG -->
+        <div class="section">
+            <h2>Image to SVG</h2>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="file" name="image" accept="image/*" required>
+                <label>K-Clusters: <input type="number" name="k_clusters" min="2" max="12" value="6"></label>
+                <button type="submit">Convert to SVG</button>
+            </form>
+
+            {% if upload_error %}
+                <p class="error">{{ upload_error }}</p>
+            {% endif %}
+
+            {% if converted_svg %}
+                <div class="svg-box">
+                    {{ converted_svg | safe }}
+                </div>
+                <button onclick="navigator.clipboard.writeText(`{{ converted_svg }}`)">Copy SVG</button>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

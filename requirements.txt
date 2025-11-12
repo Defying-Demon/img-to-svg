@@ -2,5 +2,7 @@ numpy
 pillow
 opencv-python
 pypotrace
+flask
 
 notebook
+pre-commit # for formatting

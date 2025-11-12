@@ -13,9 +13,17 @@ pip install -r requirements.txt
 
 > If you encounter issues installing **`pypotrace`**, it's likely due to missing system dependencies. Refer to the [pypotrace PyPI page](https://pypi.org/project/pypotrace/) for installation instructions.
 
-### 2. Convert an Image to SVG
 
-The script follows these main steps:
+### 2. Run the Flask Application
+Start the Flask server with:
+```bash
+python run.py
+```
+Once running, you can generate random characters and convert images to SVG format directly through the app.
+
+**Algorithm for Image to SVG converter**
+
+The image-to-SVG conversion script performs the following steps:
 
 * Apply **K-means clustering** to reduce the image to *K* dominant colors.
 * Generate a **binary mask** for each color cluster.
@@ -23,30 +31,14 @@ The script follows these main steps:
 * Combine the paths into a single **SVG file**, using cluster colors as fill values.
 * Save the result as a scalable vector image.
 
-Run the script:
+To run this process independently, execute:
 
 ```bash
-python img_to_svg.py
+python app/main/imgae_to_svg.py
 ```
 
 > Note: The image quantization method used in **Pillow** differs from that in **OpenCV**. If you're curious about the differences, check out this [notebook](./notebook/Donot_use_pillow_quantize.ipynb).
 > Although `scikit-learn` could be used for quantization, OpenCV already provides the required functionality, so no additional libraries are necessary.
-
-### 3. Create a Character in SVG
-
-To generate a character in SVG format:
-
-```bash
-python character.svg
-```
-
-### 3. Create a Character animation in SVG
-
-To generate a character in SVG format:
-
-```bash
-python character_animation.svg
-```
 
 ### Demo
 
@@ -60,5 +52,6 @@ python character_animation.svg
 * 📘 [Pillow Documentation](https://pillow.readthedocs.io/en/stable/)
 * 📘 [OpenCV Documentation](https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html)
 * 📘 [Potrace Documentation](https://pythonhosted.org/pypotrace/)
+* 📘 [Flask Documentation](https://flask.palletsprojects.com/en/stable/)
 * 📦 [pypotrace on PyPI](https://pypi.org/project/pypotrace/)
 

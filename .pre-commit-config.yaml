@@ -1,0 +1,18 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.3
+    hooks:
+      # Run Ruff linter with auto-fixes.
+      - id: ruff-check
+        types_or: [python, pyi]
+        args: [--fix]
+
+      # Run Ruff specifically to sort imports.
+      - id: ruff-check
+        name: ruff-import-sort
+        types_or: [python, pyi]
+        args: [--select, I, --fix]
+
+      # Run Ruff formatter.
+      - id: ruff-format
+        types_or: [python, pyi]

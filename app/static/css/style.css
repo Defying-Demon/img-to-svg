@@ -1,0 +1,201 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    background: #6B7AA1;
+    padding: 1rem;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.nav a:hover, .nav a.active {
+    background: rgba(255,255,255,0.2);
+}
+
+.page {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 1.5rem;
+    color: #444;
+    font-size: 2rem;
+}
+
+/* Controls */
+.controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.control-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #555;
+}
+
+.control-group input[type="range"],
+.control-group input[type="color"],
+.control-group select,
+.control-group input[type="number"] {
+    width: 100%;
+    padding: 0.4rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.control-group span {
+    margin-top: 0.3rem;
+    font-weight: bold;
+    color: #6B7AA1;
+}
+
+.inline {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+button {
+    background: #79B4B7;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 1rem;
+}
+
+button:hover {
+    background: #669fa2;
+    transform: translateY(-2px);
+}
+
+/* SVG Display */
+.svg-container {
+    width: 500px;
+    height: 500px;
+    margin: 2rem auto;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Upload Form */
+.upload-form {
+    display: inline-block;
+    text-align: left;
+    margin: 1.5rem 0;
+}
+
+.file-input {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.file-input input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.file-input label {
+    display: block;
+    padding: 12px 24px;
+    background: #6B7AA1;
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.file-input label:hover {
+    background: #5a678a;
+}
+
+/* Actions */
+.actions {
+    margin-top: 1rem;
+}
+
+.btn {
+    display: inline-block;
+    background: #79B4B7;
+    color: white;
+    padding: 12px 28px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #669fa2;
+    transform: translateY(-2px);
+}
+
+.error {
+    color: #e74c3c;
+    font-weight: bold;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #fdf2f2;
+    border-radius: 8px;
+    border: 1px solid #f5c6cb;
+}

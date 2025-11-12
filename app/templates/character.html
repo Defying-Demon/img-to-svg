@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page">
+    <h1>Animated Character</h1>
+
+    <form method="POST" class="controls">
+        <div class="control-group">
+            <label>Edges (6–10)</label>
+            <input type="range" name="edges" min="6" max="10" value="{{ params.edges }}">
+            <span>{{ params.edges }}</span>
+        </div>
+
+        <div class="control-group">
+            <label>Growth (1–10)</label>
+            <input type="range" name="growth" min="1" max="10" step="0.5" value="{{ params.growth }}">
+            <span>{{ params.growth }}</span>
+        </div>
+
+        <div class="control-group">
+            <label>Eye Type</label>
+            <select name="eye_type">
+                <option value="">Random</option>
+                <option value="single" {% if params.eye_type == 'single' %}selected{% endif %}>Single</option>
+                <option value="double" {% if params.eye_type == 'double' %}selected{% endif %}>Double</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Rotate Speed (s)</label>
+            <input type="range" name="rotate_speed" min="0.5" max="10" step="0.5" value="{{ params.rotate_speed }}">
+            <span>{{ params.rotate_speed }}</span>
+        </div>
+
+        <div class="control-group">
+            <label>Blink Speed (s)</label>
+            <input type="range" name="blink_speed" min="0.5" max="5" step="0.5" value="{{ params.blink_speed }}">
+            <span>{{ params.blink_speed }}</span>
+        </div>
+
+        <div class="control-group">
+            <label>Fill Color</label>
+            <input type="color" name="fill" value="{{ params.fill or '#79B4B7' }}">
+        </div>
+
+        <div class="control-group">
+            <label>Background</label>
+            <input type="color" name="bg" value="{{ params.bg or '#EFF7EB' }}">
+        </div>
+
+        <button type="submit">Update</button>
+    </form>
+
+    <div class="svg-container">
+        {{ svg | safe }}
+    </div>
+
+    <div class="actions">
+        <a href="{{ url_for('main.download_char') }}?{{ request.query_string.decode() }}" class="btn">Download SVG</a>
+    </div>
+</div>
+{% endblock %}

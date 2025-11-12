@@ -1,20 +1,18 @@
 import cv2
 import numpy as np
-from PIL import Image
-
 import potrace
 
-def load_image(filename):
+
+def load_image(filepath):
     """Load image and convert to RGB."""
-    image_bgr = cv2.imread(filename)
+    image_bgr = cv2.imread(filepath)
     if image_bgr is None:
-        raise FileNotFoundError(f"Could not load image at {filename}")
+        raise FileNotFoundError(f"Could not load image at {filepath}")
     image_rgb = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2RGB)
-    print("Loaded image:", filename, "Shape:", image_rgb.shape)
     return image_rgb
 
 
-def quantize_image(image, K=6, debug=False):
+def quantize_image(image, K=6):
     """Run K-means on image and return centers and 2D labels."""
     h, w, _ = image.shape
     data = image.reshape((-1, 3)).astype(np.float32)
@@ -25,19 +23,11 @@ def quantize_image(image, K=6, debug=False):
     centers = np.uint8(centers)
     labels_2D = labels.reshape(h, w)
     print(f"K-means done. K={K}. Centers shape: {centers.shape}")
-
-    if debug:
-        quantized_image = centers[labels.flatten()].reshape(image.shape)
-        try:
-            Image.fromarray(quantized_image).show()
-        except Exception:
-            print("[WARNING]: It seems you are using headless environment.")
-            pass  # headless environments
-    
     return centers, labels_2D
 
 
 # --- Potrace helpers ---------------------------------------------------------
+
 
 def _curve_to_path_d(curve):
     """
@@ -71,9 +61,15 @@ def _curve_to_path_d(curve):
     return " ".join(parts)
 
 
-def _trace_mask_to_svg_paths(mask_u8, fill_color,
-                             turdsize=2, turnpolicy=potrace.TURNPOLICY_MINORITY,
-                             alphamax=1.0, opticurve=True, opttolerance=0.2):
+def _trace_mask_to_svg_paths(
+    mask_u8,
+    fill_color,
+    turdsize=2,
+    turnpolicy=potrace.TURNPOLICY_MINORITY,
+    alphamax=1.0,
+    opticurve=True,
+    opttolerance=0.2,
+):
     """
     Trace a binary mask with potrace and emit SVG <path> elements.
     """
@@ -97,11 +93,11 @@ def _trace_mask_to_svg_paths(mask_u8, fill_color,
     return "\n".join(body)
 
 
-# --- SVG assembly ------------------------------------------------------------
-
-def build_svg(image_shape, centers, labels_2D):
+def image_to_svg(filepath: str, K: int = 6):
     """Build SVG header + traced clusters (properly handling holes)."""
-    height, width = image_shape[0], image_shape[1]
+    image = load_image(filepath)
+    centers, labels_2D = quantize_image(image, K)
+    height, width = image.shape[:2]
     header = (
         f'<svg version="1.1" xmlns="http://www.w3.org/2000/svg" '
         f'width="{width}" height="{height}" viewBox="0 0 {width} {height}">\n'
@@ -109,8 +105,9 @@ def build_svg(image_shape, centers, labels_2D):
 
     body = ['<g fill-rule="evenodd">']  # even-odd handles holes regardless of winding
 
-
-    cluster_areas = [(idx, int((labels_2D == idx).sum())) for idx in range(len(centers))]
+    cluster_areas = [
+        (idx, int((labels_2D == idx).sum())) for idx in range(len(centers))
+    ]
     for cluster_idx, _area in sorted(cluster_areas, key=lambda t: -t[1]):
         mask = (labels_2D == cluster_idx).astype(np.uint8)
         if mask.sum() == 0:
@@ -123,24 +120,17 @@ def build_svg(image_shape, centers, labels_2D):
         mask_u8 = (mask * 255).astype(np.uint8)
 
         body.append(_trace_mask_to_svg_paths(mask_u8, color))
-    
+
     body.append("</g>\n</svg>")
-    return header + "\n".join(body)
-
-def write_svg(svg_content, output_file="output.svg"):
-    """Write SVG to file."""
-    with open(output_file, "w", encoding="utf-8") as f:
-        f.write(svg_content)
-    print(f"[INFO]: SVG written to {output_file}")
-
-def main(filename, K=6, debug=False):
-    """Full pipeline."""
-    image = load_image(filename)
-    centers, labels_2D = quantize_image(image, K, debug=debug)
-    svg_content = build_svg(image.shape, centers, labels_2D)
-    write_svg(svg_content)
+    svg = header + "\n".join(body)
+    return svg
 
 
 if __name__ == "__main__":
-    main("data/sample_image.jpg", K=3, debug=True)
-    # main("/home/sanjeev/pan_nepali.png", K=10, debug=False)
+    svg_content = image_to_svg("data/sample_image.jpg", K=6)
+
+    # write the svg to file
+    output_file = "image_svg.svg"
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.write(svg_content)
+    print(f"[INFO]: SVG written to {output_file}")
