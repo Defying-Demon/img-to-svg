@@ -2,7 +2,7 @@
 import io
 import os
 
-from flask import current_app, render_template, request, send_file
+from flask import current_app, redirect, render_template, request, send_file
 from werkzeug.utils import secure_filename
 
 from . import bp
@@ -14,6 +14,11 @@ ALLOWED_EXT = {"png", "jpg", "jpeg", "bmp", "gif"}
 
 def allowed_file(f):
     return "." in f and f.rsplit(".", 1)[1].lower() in ALLOWED_EXT
+
+
+@bp.route("/")
+def index():
+    return redirect("/character")
 
 
 @bp.route("/character", methods=["GET", "POST"])
