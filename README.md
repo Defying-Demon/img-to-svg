@@ -40,6 +40,32 @@ python app/main/imgae_to_svg.py
 > Note: The image quantization method used in **Pillow** differs from that in **OpenCV**. If you're curious about the differences, check out this [notebook](./notebook/Donot_use_pillow_quantize.ipynb).
 > Although `scikit-learn` could be used for quantization, OpenCV already provides the required functionality, so no additional libraries are necessary.
 
+### Folder structure of the flask application
+> For easier navigation to code.
+```markdown
+img_to_svg/
+│
+├── app/
+│   ├── __init__.py
+│   ├── main/
+│   │   ├── __init__.py
+│   │   ├── routes.py
+│   │   ├── character.py
+│   │   └── image_to_svg.py
+│   ├── templates/
+│   │   ├── base.html
+│   │   ├── character.html
+│   │   └── image_to_svg.html
+│   └── static/
+│       ├── css/
+│       │   └── style.css
+│       └── uploads/
+│
+├── run.py
+├── config.py
+└── requirements.txt
+```
+
 ### Demo
 
 | Image to SVG               | Character               | Character Animation          |
