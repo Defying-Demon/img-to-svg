@@ -65,8 +65,11 @@ img_to_svg/
 ├── config.py
 └── requirements.txt
 ```
-
 ### Demo
+
+![character_combined](https://github.com/user-attachments/assets/ea2556cb-5d42-4e98-9a1e-036eb784615d)
+
+### Other results
 
 | Image to SVG               | Character               | Character Animation          |
 |---------------------------|-------------------------|------------------------------|
